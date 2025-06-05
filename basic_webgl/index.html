@@ -1,15 +1,46 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vanilla-picker@2.12.3/dist/vanilla-picker.min.js"></script> -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanilla-picker@2.12.3/dist/vanilla-picker.csp.min.css"> -->
+
+    <script type="module">
+      import { f } from "./newLib2.js";
+
+      f();
+
+      // document.onload =
+    </script>
+
+    <script type="text/javascript" src="math.js"></script>
+    <script type="text/javascript" src="lib2.js"></script>
     <script type="text/javascript">
       let gl;
       let startTime;
 
       function initGL(canvas) {
+        sum(1, 2);
+        lib2.f();
         gl = canvas.getContext("webgl2");
         gl.viewportWidth = canvas.width;
         gl.viewportHeight = canvas.height;
       }
+
+      // load("a1.txt", (data, error) => {
+      //   if (!error) {
+      //     load("a2.txt", (data, error) => {
+      //       if (!error) {
+      //         load("a2.txt", (data, error) => {
+      //           if (!error) {
+      //             load("a2.txt", (data, error) => {});
+      //           }
+      //         });
+      //       }
+      //     });
+      //   }
+      // });
+
+      // fetch()
 
       const shaderFs = `#version 300 es
         precision highp float;
@@ -46,6 +77,30 @@
       let u_time_location;
 
       function initShaders() {
+        function loadShaderText(uri) {
+          return fetch(uri)
+            .then((response) => {
+              if (!response.ok) {
+                throw "Resource not found";
+              }
+              return response.text();
+            })
+            .then((text) => {
+              return text;
+            });
+        }
+
+        Promise.all([
+          loadShaderText("vertex.glsl"),
+          loadShaderText("fragment.glsl"),
+        ])
+          .then((shaders) => {
+            console.log(shaders);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+
         const vs = getShader(shaderFs, gl.FRAGMENT_SHADER);
         const fs = getShader(shaderVs, gl.VERTEX_SHADER);
 
@@ -83,7 +138,7 @@
         gl.enableVertexAttribArray(0);
         gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
 
-        timeFromStart = (new Date()).getMilliseconds() - startTime;
+        timeFromStart = new Date().getMilliseconds() - startTime;
         gl.uniform1f(u_time_location, timeFromStart / 1000.0);
 
         gl.drawArrays(gl.TRIANGLES, 0, 3);
@@ -93,15 +148,20 @@
       function onStart() {
         console.log("ABC");
 
+        // let parent = document.querySelector('#parent');
+        // let picker = new Picker(parent);
+
         let canvas = document.getElementById("webgl-canvas");
 
-        canvas.onmousemove = (ev)=>{console.log(`(${ev.x}, ${ev.y})`);}
+        canvas.onmousemove = (ev) => {
+          console.log(`(${ev.x}, ${ev.y})`);
+        };
 
         initGL(canvas);
         initShaders();
         initBuffer();
 
-        startTime = (new Date()).getMilliseconds();
+        startTime = new Date().getMilliseconds();
         drawScene();
       }
     </script>
@@ -113,5 +173,6 @@
       width="500"
       height="500"
     ></canvas>
+    <div id="parent">Click me</div>
   </body>
 </html>
