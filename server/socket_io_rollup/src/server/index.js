@@ -4,11 +4,8 @@ const logger = require("morgan");
 const cookieParser = require("cookie-parser");
 const { Server } = require("socket.io");
 
-// console.log("ABC")
-
 const app = express();
 const port = 8002;
-
 
 app.use(logger("dev"));
 app.use(cookieParser());
@@ -33,7 +30,6 @@ io.on("connection", (socket) => {
 
         for (client of clients) {
             client.emit("messageFromServer", `Message from client ${socket.id} was ${msg}`);
-            continue;
         }
     });
     socket.on("disconnect", () => {
