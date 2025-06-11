@@ -7,12 +7,11 @@ async function main() {
         console.log(socket.id);
         socket.emit("messageToServer", `Hello`);
         socket.on("messageFromServer", function (msg) {
-            // let tag = document.getElementById("id2");
+            const messages = document.getElementById("main")
+            const item = document.createElement('li');
+            item.textContent = msg;
+            messages.appendChild(item);
             console.log(msg);
-            // let before = tag.value + "\n";
-            // console.log(`${socket.id} received message ${msg}`);
-            // tag.value = before + msg;
-            // tag.scrollTop = tag.scrollHeight;
         });
     });
 
