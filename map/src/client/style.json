@@ -1,0 +1,31 @@
+{
+  "version": 8,
+  "name": "Empty Style",
+  "metadata": {},
+  "sources": {
+    "openmaptiles": {
+      "type": "vector",
+      "url": "https://api.maptiler.com/tiles/v3-openmaptiles/tiles.json?key=get_your_own_OpIi9ZULNHzrESv6T2vL"
+    },
+    "6e6jn58": {
+      "type": "raster",
+      "tiles": ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
+      "minzoom": 0,
+      "maxzoom": 14,
+      "scheme": "xyz",
+      "tileSize": 512
+    },
+    "gggggg": {
+      "type": "raster",
+      "tiles": ["https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"],
+      "minzoom": 0,
+      "maxzoom": 14,
+      "scheme": "xyz",
+      "tileSize": 512
+    }
+  },
+  "sprite": "",
+  "glyphs": "https://orangemug.github.io/font-glyphs/glyphs/{fontstack}/{range}.pbf",
+  "layers": [{"id": "", "type": "raster", "source": "gggggg"}],
+  "id": "sdj1lak"
+}
